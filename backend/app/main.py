@@ -7,6 +7,7 @@ from sqlmodel import SQLModel
 
 from app.config import FRONTEND_URL
 from app.dependencies.database import engine
+from app.models.user import User  # noqa: F401 - register model for create_all
 from app.routers import auth, health, tasks
 
 

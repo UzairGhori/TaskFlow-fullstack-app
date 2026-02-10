@@ -5,6 +5,7 @@ from sqlmodel import Field, SQLModel
 
 
 class User(SQLModel, table=True):
+    __tablename__ = "app_user"
     id: str = Field(default_factory=lambda: str(uuid4()), primary_key=True)
     email: str = Field(unique=True, index=True)
     name: str = Field(max_length=255)
