@@ -2,20 +2,18 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "@/lib/auth-client";
+import { isAuthenticated } from "@/lib/auth-client";
 
 export default function Home() {
-  const { data: session, isPending } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    if (isPending) return;
-    if (session) {
+    if (isAuthenticated()) {
       router.replace("/dashboard");
     } else {
       router.replace("/signin");
     }
-  }, [session, isPending, router]);
+  }, [router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center">

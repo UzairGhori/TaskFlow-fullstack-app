@@ -1,4 +1,4 @@
-import { authClient } from "./auth-client";
+import { getToken } from "./auth-client";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
@@ -6,9 +6,9 @@ export async function fetchWithAuth(
   path: string,
   options: RequestInit = {}
 ): Promise<Response> {
-  const { data, error } = await authClient.token();
+  const token = getToken();
 
-  if (error || !data?.token) {
+  if (!token) {
     window.location.href = "/signin";
     throw new Error("Not authenticated");
   }
@@ -17,12 +17,14 @@ export async function fetchWithAuth(
     ...options,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${data.token}`,
+      Authorization: `Bearer ${token}`,
       ...options.headers,
     },
   });
 
   if (res.status === 401) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     window.location.href = "/signin";
     throw new Error("Not authenticated");
   }

@@ -7,7 +7,7 @@ from sqlmodel import SQLModel
 
 from app.config import FRONTEND_URL
 from app.dependencies.database import engine
-from app.routers import health, tasks
+from app.routers import auth, health, tasks
 
 
 @asynccontextmanager
@@ -35,5 +35,6 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 
+app.include_router(auth.router)
 app.include_router(health.router)
 app.include_router(tasks.router)

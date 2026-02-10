@@ -1,6 +1,7 @@
 fastapi
 uvicorn[standard]
 sqlmodel
-PyJWT[crypto]
+PyJWT
 python-dotenv
 psycopg2-binary
+bcrypt

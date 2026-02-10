@@ -17,13 +17,10 @@ export default function SignInPage() {
     setError("");
     setLoading(true);
 
-    const { error: authError } = await signIn.email({
-      email,
-      password,
-    });
+    const result = await signIn({ email, password });
 
-    if (authError) {
-      setError("Invalid email or password");
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
       return;
     }

@@ -5,4 +5,7 @@ load_dotenv()
 
 DATABASE_URL: str = os.environ["DATABASE_URL"]
 FRONTEND_URL: str = os.environ.get("FRONTEND_URL", "http://localhost:3000")
-JWKS_URL: str = os.environ.get("JWKS_URL", FRONTEND_URL + "/api/auth/jwks")
+SECRET_KEY: str = os.environ.get(
+    "SECRET_KEY",
+    "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7",
+)

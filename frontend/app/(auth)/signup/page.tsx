@@ -31,14 +31,10 @@ export default function SignUpPage() {
     }
 
     setLoading(true);
-    const { error: authError } = await signUp.email({
-      name,
-      email,
-      password,
-    });
+    const result = await signUp({ name, email, password });
 
-    if (authError) {
-      setError(authError.message || "An error occurred during signup");
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
       return;
     }
