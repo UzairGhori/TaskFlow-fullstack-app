@@ -3,7 +3,7 @@ import os
 
 load_dotenv()
 
-DATABASE_URL: str = os.environ["DATABASE_URL"]
+DATABASE_URL: str = os.environ.get("DATABASE_URL", "")
 FRONTEND_URL: str = os.environ.get("FRONTEND_URL", "http://localhost:3000")
 SECRET_KEY: str = os.environ.get(
     "SECRET_KEY",

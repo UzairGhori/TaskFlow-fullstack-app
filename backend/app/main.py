@@ -17,13 +17,22 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(title="TaskFlow API", version="1.0.0", lifespan=lifespan)
+
+# Build allowed origins list
+allowed_origins = [
+    origin.strip()
+    for origin in FRONTEND_URL.split(",")
+    if origin.strip()
+]
+if "http://localhost:3000" not in allowed_origins:
+    allowed_origins.append("http://localhost:3000")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL],
+    allow_origins=allowed_origins,
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
 
